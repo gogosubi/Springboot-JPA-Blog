@@ -1,0 +1,13 @@
+1. Get 요청 ( 데이터 조회 )
+ 특징 : body로 데이터를 담아보내지 않음
+ 
+2. Post, Put, Delete 방식 ( 데이터 변경)
+ - 데이터를 담아보내야할 것이 많아 body에 데이터를 담아보낸다.
+ - form 태그 방식은 Get, Post방식 밖에 없음(Put, Delete 불가)
+    : Put, Delete는 자바스크립트로 요청해야 함.
+ => 통일 : 1. 자바스크립트로 ajax요청 + 데이터를 json으로 통일
+          2. form:form태그 사용 -> get, post, put, delete 가능
+          
+3. Object로 데이터 받기
+ 3.1 Post방식의 Key-value
+   : 변수명과 값이 동일해야 함.(setter가 없으면 오류 발생) 

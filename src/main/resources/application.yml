@@ -23,13 +23,14 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: create # DDL 생성 create
       naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      use-new-id-generator-mappings: false
-    show-sql: true
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl # Entity에 있는 클래스 변수명 그대로 DB에 설정하는 옵션
+        #physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy # SpringFrameWork에서 자동으로 대문자가 있으면 _를 추가하여 표시함.(Default)
+      use-new-id-generator-mappings: false # DB Key 자동 생성 옵션 사용 하지 않음.
+    show-sql: true # 실행 SQL 보이도록 설정함.
     properties:
-      hibernate.format_sql: true
+      hibernate.format_sql: true # SQL 예쁘게 변환
 
   jackson:
     serialization:
