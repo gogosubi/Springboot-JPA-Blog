@@ -4,42 +4,50 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cos.blog.config.auth.PrincipalDetail;
 import com.cos.blog.dto.ResponseDto;
-import com.cos.blog.model.User;
-import com.cos.blog.service.UserService;
+import com.cos.blog.model.Board;
+import com.cos.blog.service.BoardService;
 
 @RestController
-public class UserApiController 
-{
+public class BoardApiController 
+{	
 	@Autowired
-	private UserService userService;
+	private BoardService boardService;
 	
-//	@Autowired
-//	private HttpSession httpSession;
-	
-	@PostMapping("/auth/joinProc")
-	public ResponseDto<Integer> save(@RequestBody User user)
+	@PostMapping("/api/board")
+	public ResponseDto<Integer> save(@RequestBody Board board, @AuthenticationPrincipal PrincipalDetail principal)
 	{
-		System.out.println("UserApiController : save 호출됨");
-		userService.회원가입(user);
+		System.out.println("BoardApiController : save 호출됨");
+		boardService.글쓰기(board, principal.getUser());
+		
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
 	
-	@PutMapping("/user")
-	public ResponseDto<Integer> update(@RequestBody User user)
+	@DeleteMapping("/api/board/{id}")
+	public ResponseDto<Integer> deleteById(@PathVariable int id)
 	{
-		System.out.println("UserApiController : update 호출됨");
-		userService.회원수정(user);
-		
-		// 여기서는 트랜잭션이 종료되기 때문에 DB 값은 변경되었음
-		// 하지만, 세션값은 변경되지 ㅇ낳은 상태이기 때문에 직접 세션값을 변경해 줄 것임.
+		System.out.println("BoardApiController : delete 호출됨");
+		boardService.삭제하기(id);
+
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+	}
+	
+	@PutMapping("/api/board/{id}")
+	public ResponseDto<Integer> update(@PathVariable int id, @RequestBody Board board)
+	{
 		
+		boardService.글수정하기(id, board);
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);		
 	}
 	
 	

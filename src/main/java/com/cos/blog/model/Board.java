@@ -38,7 +38,6 @@ public class Board {
 	@Lob // 대용량 데이터
 	private String content; // 섬머노트 라이브러리
 	
-	@ColumnDefault("0")
 	private int count; // 조회수
 	
 	// JPA ManyToMany 확인하는 사이트 : https://ict-nroo.tistory.com/127

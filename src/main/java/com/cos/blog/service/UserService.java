@@ -27,6 +27,19 @@ public class UserService {
 		
 		userRepository.save(user);		
 	}
+	
+	@Transactional
+	public void 회원수정(User requestUser)
+	{
+		System.out.println("회원ID : " + requestUser.getId());
+		
+		User user = userRepository.findById(requestUser.getId())
+								.orElseThrow(()->new IllegalArgumentException("회원찾기실패"));
+		
+		System.out.println(user.getEmail() + " : " + requestUser.getEmail());
+		user.setPassword(encoder.encode(requestUser.getPassword()));
+		user.setEmail(requestUser.getEmail());
+	}
 
 	/*
 	 * 전통적인 방식의 로그인 방법(삭제)
