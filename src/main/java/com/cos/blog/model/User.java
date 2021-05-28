@@ -30,14 +30,17 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // 프로젝트와 연결된 DB의 넘버링 전략
 	private int id; // 시퀀스, auto_increment
 
-	@Column(nullable = false, length = 30, unique = true)
+	@Column(nullable = false, length = 100, unique = true)
 	private String username; // ID
-	
+
 	@Column(nullable = false, length = 100) 
 	private String password;
 	
 	@Column(nullable = false, length = 50)
 	private String email;
+	
+	@Column
+	private String oauth;
 	
 	// @ColumnDefault("'user'") // DB의 Field에 Default값 설정
 	// private String role; // Enum을 쓰는게 좋다.

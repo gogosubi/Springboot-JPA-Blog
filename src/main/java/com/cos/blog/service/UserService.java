@@ -37,8 +37,18 @@ public class UserService {
 								.orElseThrow(()->new IllegalArgumentException("회원찾기실패"));
 		
 		System.out.println(user.getEmail() + " : " + requestUser.getEmail());
-		user.setPassword(encoder.encode(requestUser.getPassword()));
-		user.setEmail(requestUser.getEmail());
+		if ( user.getOauth() == null || user.getOauth().equals(""))
+		{
+			user.setPassword(encoder.encode(requestUser.getPassword()));
+			user.setEmail(requestUser.getEmail());
+		}
+	}
+	
+	@Transactional(readOnly = true)
+	public User 회원찾기(String username)
+	{
+		return userRepository.findByUsername(username)
+							.orElseGet(()->new User());
 	}
 
 	/*

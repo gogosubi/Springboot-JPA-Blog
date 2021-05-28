@@ -3,6 +3,7 @@ package com.cos.blog.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,6 +22,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 	@Autowired
 	private PrincipalDetailService principalDetailService;
 	
+	@Bean // 함수의 결과값도 Bean으로 등록이 가능하네.. -> 어디서든 DI로 받을 수 있게 하기 위하여 필요함. 어노테이션에 따른 생성 순서를 잘 기억해야겠음.	
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		// TODO Auto-generated method stub
+		return super.authenticationManagerBean();
+	}
+
 	@Bean
 	public BCryptPasswordEncoder encodePWD()
 	{

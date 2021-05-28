@@ -35,3 +35,6 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
+      
+kakao:
+  key: subi1234
