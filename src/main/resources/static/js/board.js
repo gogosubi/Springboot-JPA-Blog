@@ -10,6 +10,9 @@ let index = {
 		$("#btn-update").on("click", () => {
 			this.update();
 		});
+		$("#btn-reply-save").on("click", () => {
+			this.replySave();
+		});
 	},
 
 	save: function() {
@@ -76,6 +79,48 @@ let index = {
 		}).done(function(resp) {
 			alert("글 수정이 완료되었습니다.");
 			location.href = "/";
+		}).fail(function(error) {
+			alert(JSON.stringify(error));
+		});
+	},
+
+	replySave: function() {
+		let data = {
+			userId: $("#userId").val(),
+			boardId: $("#boardId").val(),
+			content: $("#reply-content").val()
+		};
+		
+		// let boardId = $("#boardId").val(); // Dto 변경전 
+
+		console.log(data)
+		// ajax호출시 default가 비동기 호출
+		// ajax통신을 이용하여 3개의 data를 json으로 변경하여 insert요청
+		$.ajax({
+			type: "POST",
+			url: `/api/board/${data.boardId}/reply`,
+			// http Body 데이터
+			data: JSON.stringify(data),
+			// Body 데이터 타입
+			contentType: "application/json",
+			// 응답받을 데이터 형태 정의(Default:String), 수신받은 데이터 형태가 json이라면 javascript로 변경 
+			dataType: "json"
+		}).done(function(resp) {
+			alert("댓글작성이 완료되었습니다.");
+			location.href = `/board/${data.boardId}`;
+		}).fail(function(error) {
+			alert(JSON.stringify(error));
+		});
+	}
+	
+	, replyDelete: function(boardId, replyId) {	
+		$.ajax({
+			type: "DELETE",
+			url: `/api/board/${boardId}/reply/${replyId}`, 
+			dataType: "json"
+		}).done(function(resp) {
+			alert("댓글삭제성공");
+			location.href = `/board/${boardId}`;
 		}).fail(function(error) {
 			alert(JSON.stringify(error));
 		});

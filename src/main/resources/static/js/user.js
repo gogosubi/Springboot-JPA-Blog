@@ -36,8 +36,15 @@ let index = {
 			// 응답받을 데이터 형태 정의(Default:String), 수신받은 데이터 형태가 json이라면 javascript로 변경 
 			dataType: "json"
 		}).done(function(resp) {
-			alert("회원가입이 완료되었습니다.");
-			location.href = "/";
+			if ( resp.status == 500 )
+			{
+				alert("회원가입에 실패하였습니다.");
+			}
+			else
+			{
+				alert("회원가입이 완료되었습니다.");
+				location.href = "/";
+			}
 		}).fail(function(error) {
 			alert(JSON.stringify(error));
 		});
