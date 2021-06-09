@@ -37,4 +37,4 @@ spring:
       fail-on-empty-beans: false
       
 kakao:
-  key: subi1234
+  key: 
